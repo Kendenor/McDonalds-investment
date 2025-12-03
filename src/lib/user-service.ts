@@ -1131,6 +1131,9 @@ export class InvestmentPlanService {
   // Define all investment plans
   static getBasicPlans() {
     return [
+      // Basic plans are deprecated and no longer shown in the app,
+      // but we keep definitions here for backward compatibility with
+      // previously purchased Basic products.
       { id: 'basic-1', name: 'Basic 1', price: 2500, dailyROI: 23.5, cycleDays: 30, dailyIncome: 587.50, totalReturn: 17625 },
       { id: 'basic-2', name: 'Basic 2', price: 5000, dailyROI: 23.5, cycleDays: 30, dailyIncome: 1175, totalReturn: 35250 },
       { id: 'basic-3', name: 'Basic 3', price: 10000, dailyROI: 23.5, cycleDays: 30, dailyIncome: 2350, totalReturn: 70500 },
@@ -1147,30 +1150,35 @@ export class InvestmentPlanService {
 
   static getSpecialPlans() {
     return [
-      { id: 'special-1', name: 'Special 1', price: 5000, dailyROI: 19.5, cycleDays: 50, dailyIncome: 975, totalReturn: 48750 },
-      { id: 'special-2', name: 'Special 2', price: 10000, dailyROI: 19.5, cycleDays: 50, dailyIncome: 1950, totalReturn: 97500 },
-      { id: 'special-3', name: 'Special 3', price: 20000, dailyROI: 19.5, cycleDays: 50, dailyIncome: 3900, totalReturn: 195000 },
-      { id: 'special-4', name: 'Special 4', price: 30000, dailyROI: 19.5, cycleDays: 50, dailyIncome: 5850, totalReturn: 292500 },
-      { id: 'special-5', name: 'Special 5', price: 50000, dailyROI: 19.5, cycleDays: 50, dailyIncome: 9750, totalReturn: 487500 },
-      { id: 'special-6', name: 'Special 6', price: 100000, dailyROI: 19.5, cycleDays: 50, dailyIncome: 19500, totalReturn: 975000 },
-      { id: 'special-7', name: 'Special 7', price: 150000, dailyROI: 19.5, cycleDays: 50, dailyIncome: 29250, totalReturn: 1462500 },
-      { id: 'special-8', name: 'Special 8', price: 200000, dailyROI: 19.5, cycleDays: 50, dailyIncome: 39000, totalReturn: 1950000 },
-      { id: 'special-9', name: 'Special 9', price: 300000, dailyROI: 19.5, cycleDays: 50, dailyIncome: 58500, totalReturn: 2925000 },
-      { id: 'special-10', name: 'Special 10', price: 500000, dailyROI: 19.5, cycleDays: 50, dailyIncome: 97500, totalReturn: 4875000 }
+      // Updated Special plans: 3.9% daily ROI, 365 days
+      { id: 'special-1', name: 'Special 1', price: 3000, dailyROI: 3.9, cycleDays: 365, dailyIncome: 117, totalReturn: 42705 },
+      { id: 'special-2', name: 'Special 2', price: 5000, dailyROI: 3.9, cycleDays: 365, dailyIncome: 195, totalReturn: 71175 },
+      { id: 'special-3', name: 'Special 3', price: 12000, dailyROI: 3.9, cycleDays: 365, dailyIncome: 468, totalReturn: 170820 },
+      { id: 'special-4', name: 'Special 4', price: 26000, dailyROI: 3.9, cycleDays: 365, dailyIncome: 1014, totalReturn: 370110 },
+      { id: 'special-5', name: 'Special 5', price: 50000, dailyROI: 3.9, cycleDays: 365, dailyIncome: 1950, totalReturn: 711750 },
+      { id: 'special-6', name: 'Special 6', price: 100000, dailyROI: 3.9, cycleDays: 365, dailyIncome: 3900, totalReturn: 1423500 },
+      { id: 'special-7', name: 'Special 7', price: 150000, dailyROI: 3.9, cycleDays: 365, dailyIncome: 5850, totalReturn: 2135250 },
+      { id: 'special-8', name: 'Special 8', price: 200000, dailyROI: 3.9, cycleDays: 365, dailyIncome: 7800, totalReturn: 2847000 },
+      { id: 'special-9', name: 'Special 9', price: 300000, dailyROI: 3.9, cycleDays: 365, dailyIncome: 11700, totalReturn: 4270500 },
+      { id: 'special-10', name: 'Special 10', price: 500000, dailyROI: 3.9, cycleDays: 365, dailyIncome: 19500, totalReturn: 7117500 },
+      { id: 'special-11', name: 'Special 11', price: 1000000, dailyROI: 3.9, cycleDays: 365, dailyIncome: 39000, totalReturn: 14235000 }
     ];
   }
 
   static getPremiumPlans() {
     return [
+      // Existing Premium 1 kept for compatibility
       { id: 'premium-1', name: 'Premium 1', price: 5000, dailyROI: 19.9, cycleDays: 7, dailyIncome: 995, totalReturn: 6965 },
-      { id: 'premium-2', name: 'Premium 2', price: 10000, dailyROI: 19.9, cycleDays: 7, dailyIncome: 1990, totalReturn: 13930 },
-      { id: 'premium-3', name: 'Premium 3', price: 20000, dailyROI: 19.9, cycleDays: 7, dailyIncome: 3980, totalReturn: 27860 },
-      { id: 'premium-4', name: 'Premium 4', price: 30000, dailyROI: 19.9, cycleDays: 7, dailyIncome: 5970, totalReturn: 41790 },
-      { id: 'premium-5', name: 'Premium 5', price: 50000, dailyROI: 19.9, cycleDays: 7, dailyIncome: 9950, totalReturn: 69650 },
-      { id: 'premium-6', name: 'Premium 6', price: 100000, dailyROI: 19.9, cycleDays: 7, dailyIncome: 19900, totalReturn: 139300 },
-      { id: 'premium-7', name: 'Premium 7', price: 150000, dailyROI: 19.9, cycleDays: 7, dailyIncome: 29850, totalReturn: 208950 },
-      { id: 'premium-8', name: 'Premium 8', price: 200000, dailyROI: 19.9, cycleDays: 7, dailyIncome: 39800, totalReturn: 278600 },
-      { id: 'premium-9', name: 'Premium 9', price: 300000, dailyROI: 19.9, cycleDays: 7, dailyIncome: 59700, totalReturn: 417900 }
+      // Updated Premium plans: 12.6% daily ROI, 10 days
+      { id: 'premium-2', name: 'Premium 2', price: 10000, dailyROI: 12.6, cycleDays: 10, dailyIncome: 1260, totalReturn: 12600 },
+      { id: 'premium-3', name: 'Premium 3', price: 20000, dailyROI: 12.6, cycleDays: 10, dailyIncome: 2520, totalReturn: 25200 },
+      { id: 'premium-4', name: 'Premium 4', price: 30000, dailyROI: 12.6, cycleDays: 10, dailyIncome: 3780, totalReturn: 37800 },
+      { id: 'premium-5', name: 'Premium 5', price: 50000, dailyROI: 12.6, cycleDays: 10, dailyIncome: 6300, totalReturn: 63000 },
+      { id: 'premium-6', name: 'Premium 6', price: 100000, dailyROI: 12.6, cycleDays: 10, dailyIncome: 12600, totalReturn: 126000 },
+      { id: 'premium-7', name: 'Premium 7', price: 150000, dailyROI: 12.6, cycleDays: 10, dailyIncome: 18900, totalReturn: 189000 },
+      { id: 'premium-8', name: 'Premium 8', price: 200000, dailyROI: 12.6, cycleDays: 10, dailyIncome: 25200, totalReturn: 252000 },
+      { id: 'premium-9', name: 'Premium 9', price: 300000, dailyROI: 12.6, cycleDays: 10, dailyIncome: 37800, totalReturn: 378000 },
+      { id: 'premium-10', name: 'Premium 10', price: 500000, dailyROI: 12.6, cycleDays: 10, dailyIncome: 63000, totalReturn: 630000 }
     ];
   }
 
@@ -1312,6 +1320,7 @@ export class InvestmentPlanService {
 
 export class ReferralService {
   private static COLLECTION = 'referrals';
+  private static REWARDS_COLLECTION = 'referral_rewards';
 
   // Generate referral code
   static generateReferralCode(): string {
@@ -1728,6 +1737,209 @@ export class ReferralService {
       return 0;
     }
   }
+
+  // ---------- Referral Milestone Rewards (VIP Event System) ----------
+
+  private static getMilestoneConfig() {
+    return [
+      { id: 'VIP1', target: 5, reward: 1000 },
+      { id: 'VIP2', target: 15, reward: 5000 },
+      { id: 'VIP3', target: 30, reward: 9000 },
+      { id: 'VIP4', target: 50, reward: 20000 },
+      { id: 'VIP5', target: 70, reward: 30000 },
+      { id: 'VIP6', target: 130, reward: 60000 },
+      { id: 'VIP7', target: 250, reward: 100000 },
+      { id: 'VIP8', target: 300, reward: 120000 },
+      { id: 'VIP9', target: 400, reward: 150000 },
+      { id: 'VIP10', target: 500, reward: 200000 },
+      { id: 'VIP11', target: 900, reward: 250000 },
+      { id: 'VIP12', target: 1200, reward: 320000 },
+      { id: 'VIP13', target: 2000, reward: 400000 },
+    ] as const;
+  }
+
+  // A "valid" referral is: level 1, hasDeposited = true, and has at least one investment
+  private static async getValidReferralCount(userId: string): Promise<number> {
+    const level1Referrals = await this.getDirectReferrals(userId);
+
+    if (level1Referrals.length === 0) return 0;
+
+    let validCount = 0;
+    for (const referral of level1Referrals) {
+      if (!referral.hasDeposited) continue;
+
+      // Check if referral has at least one purchased product
+      const products = await ProductService.getUserProducts(referral.id);
+      if (products.length > 0) {
+        validCount += 1;
+      }
+    }
+
+    return validCount;
+  }
+
+  // Get user's milestone status and progress
+  static async getReferralMilestoneStatus(userId: string): Promise<{
+    validReferrals: number;
+    milestones: Array<{
+      id: string;
+      target: number;
+      reward: number;
+      status: 'locked' | 'claimable' | 'claimed';
+    }>;
+    nextTarget: number | null;
+  }> {
+    if (!isClientSide()) {
+      console.warn('Firebase not initialized on server, cannot get referral milestone status');
+      return { validReferrals: 0, milestones: [], nextTarget: null };
+    }
+
+    try {
+      const milestonesConfig = this.getMilestoneConfig();
+      const validReferrals = await this.getValidReferralCount(userId);
+
+      // Load existing reward claims
+      const qRewards = query(
+        collection(db, this.REWARDS_COLLECTION),
+        where('userId', '==', userId)
+      );
+      const rewardsSnapshot = await getDocs(qRewards);
+      const claimedTargets = new Set<number>();
+      rewardsSnapshot.forEach(docSnap => {
+        const data = docSnap.data() as { milestoneTarget: number; status: 'claimed' | 'pending' };
+        if (data.status === 'claimed') {
+          claimedTargets.add(data.milestoneTarget);
+        }
+      });
+
+      const milestones: Array<{
+        id: string;
+        target: number;
+        reward: number;
+        status: 'locked' | 'claimable' | 'claimed';
+      }> = [];
+
+      let nextTarget: number | null = null;
+      let allPreviousClaimed = true;
+
+      for (const milestone of milestonesConfig) {
+        let status: 'locked' | 'claimable' | 'claimed' = 'locked';
+
+        if (claimedTargets.has(milestone.target)) {
+          status = 'claimed';
+        } else if (validReferrals >= milestone.target && allPreviousClaimed) {
+          status = 'claimable';
+        } else if (validReferrals < milestone.target && nextTarget === null) {
+          nextTarget = milestone.target;
+        }
+
+        if (!claimedTargets.has(milestone.target)) {
+          allPreviousClaimed = false;
+        }
+
+        milestones.push({
+          id: milestone.id,
+          target: milestone.target,
+          reward: milestone.reward,
+          status,
+        });
+      }
+
+      if (nextTarget === null) {
+        nextTarget = null;
+      }
+
+      return {
+        validReferrals,
+        milestones,
+        nextTarget,
+      };
+    } catch (error) {
+      console.error('Error getting referral milestone status:', error);
+      return { validReferrals: 0, milestones: [], nextTarget: null };
+    }
+  }
+
+  // Claim a specific milestone reward (enforces order and no double-claim)
+  static async claimReferralMilestone(userId: string, milestoneTarget: number): Promise<{ success: boolean; message: string }> {
+    if (!isClientSide()) {
+      return { success: false, message: 'Not on client side' };
+    }
+
+    try {
+      const milestonesConfig = this.getMilestoneConfig();
+      const milestone = milestonesConfig.find(m => m.target === milestoneTarget);
+      if (!milestone) {
+        return { success: false, message: 'Invalid milestone' };
+      }
+
+      const { validReferrals, milestones } = await this.getReferralMilestoneStatus(userId);
+
+      const currentStatus = milestones.find(m => m.target === milestoneTarget);
+      if (!currentStatus || currentStatus.status !== 'claimable') {
+        return { success: false, message: 'Milestone is not claimable yet' };
+      }
+
+      if (validReferrals < milestoneTarget) {
+        return { success: false, message: 'Referral target not reached' };
+      }
+
+      // Ensure all previous milestones are claimed
+      const previousUnclaimed = milestones.some(
+        m => m.target < milestoneTarget && m.status !== 'claimed'
+      );
+      if (previousUnclaimed) {
+        return { success: false, message: 'Please claim previous milestones first' };
+      }
+
+      // Double-check no existing claimed record for this milestone
+      const qCheck = query(
+        collection(db, this.REWARDS_COLLECTION),
+        where('userId', '==', userId),
+        where('milestoneTarget', '==', milestoneTarget),
+        where('status', '==', 'claimed')
+      );
+      const checkSnapshot = await getDocs(qCheck);
+      if (!checkSnapshot.empty) {
+        return { success: false, message: 'Milestone already claimed' };
+      }
+
+      // Credit reward to user balance
+      const user = await UserService.getUserById(userId);
+      if (!user) {
+        return { success: false, message: 'User not found' };
+      }
+
+      const newBalance = (user.balance || 0) + milestone.reward;
+      await UserService.saveUser({ ...user, balance: newBalance });
+
+      // Record reward claim
+      await addDoc(collection(db, this.REWARDS_COLLECTION), {
+        userId,
+        milestoneTarget,
+        amount: milestone.reward,
+        status: 'claimed',
+        claimedAt: new Date().toISOString(),
+      });
+
+      // Log transaction
+      await TransactionService.createTransaction({
+        userId,
+        userEmail: user.email,
+        type: 'Referral_Bonus',
+        amount: milestone.reward,
+        status: 'Completed',
+        date: new Date().toISOString(),
+        description: `Referral milestone reward for ${milestoneTarget} valid users`,
+        referralUserId: undefined,
+      });
+
+      return { success: true, message: `Successfully claimed ₦${milestone.reward.toLocaleString()} reward!` };
+    } catch (error) {
+      console.error('Error claiming referral milestone:', error);
+      return { success: false, message: 'Failed to claim reward. Please try again.' };
+    }
+  }
 } 
 
 // Product Inventory Service
@@ -1749,29 +1961,31 @@ export class ProductInventoryService {
 
       // Special products inventory
       const specialInventory = {
-        'special-1': { available: 300, total: 300, name: 'Special 1' },
-        'special-2': { available: 250, total: 250, name: 'Special 2' },
-        'special-3': { available: 150, total: 150, name: 'Special 3' },
-        'special-4': { available: 120, total: 120, name: 'Special 4' },
-        'special-5': { available: 100, total: 100, name: 'Special 5' },
-        'special-6': { available: 90, total: 90, name: 'Special 6' },
-        'special-7': { available: 70, total: 70, name: 'Special 7' },
-        'special-8': { available: 40, total: 40, name: 'Special 8' },
-        'special-9': { available: 15, total: 15, name: 'Special 9' },
-        'special-10': { available: 3, total: 3, name: 'Special 10' }
+        'special-1': { available: 50, total: 50, name: 'Special 1' },
+        'special-2': { available: 50, total: 50, name: 'Special 2' },
+        'special-3': { available: 50, total: 50, name: 'Special 3' },
+        'special-4': { available: 50, total: 50, name: 'Special 4' },
+        'special-5': { available: 50, total: 50, name: 'Special 5' },
+        'special-6': { available: 35, total: 35, name: 'Special 6' },
+        'special-7': { available: 25, total: 25, name: 'Special 7' },
+        'special-8': { available: 15, total: 15, name: 'Special 8' },
+        'special-9': { available: 5, total: 5, name: 'Special 9' },
+        'special-10': { available: 3, total: 3, name: 'Special 10' },
+        'special-11': { available: 1, total: 1, name: 'Special 11' }
       };
 
       // Premium products inventory
       const premiumInventory = {
         'premium-1': { available: 200, total: 200, name: 'Premium 1' },
-        'premium-2': { available: 170, total: 170, name: 'Premium 2' },
-        'premium-3': { available: 150, total: 150, name: 'Premium 3' },
-        'premium-4': { available: 120, total: 120, name: 'Premium 4' },
-        'premium-5': { available: 100, total: 100, name: 'Premium 5' },
-        'premium-6': { available: 80, total: 80, name: 'Premium 6' },
-        'premium-7': { available: 50, total: 50, name: 'Premium 7' },
-        'premium-8': { available: 30, total: 30, name: 'Premium 8' },
-        'premium-9': { available: 4, total: 4, name: 'Premium 9' }
+        'premium-2': { available: 55, total: 55, name: 'Premium 2' },
+        'premium-3': { available: 55, total: 55, name: 'Premium 3' },
+        'premium-4': { available: 55, total: 55, name: 'Premium 4' },
+        'premium-5': { available: 50, total: 50, name: 'Premium 5' },
+        'premium-6': { available: 45, total: 45, name: 'Premium 6' },
+        'premium-7': { available: 20, total: 20, name: 'Premium 7' },
+        'premium-8': { available: 10, total: 10, name: 'Premium 8' },
+        'premium-9': { available: 2, total: 2, name: 'Premium 9' },
+        'premium-10': { available: 1, total: 1, name: 'Premium 10' }
       };
 
       // Save inventory to Firestore

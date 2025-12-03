@@ -16,7 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
-import { Users, TrendingUp, Wallet, Calendar, Loader } from "lucide-react"
+import { Users, TrendingUp, Wallet, Calendar, Loader, Gift, Lock, CheckCircle } from "lucide-react"
 import { useToast } from '@/hooks/use-toast'
 import { onAuthStateChanged, User } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
@@ -30,6 +30,13 @@ interface ReferralDetails {
   referralsWithoutDeposits: number;
 }
 
+interface MilestoneStatus {
+  id: string;
+  target: number;
+  reward: number;
+  status: 'locked' | 'claimable' | 'claimed';
+}
+
 export default function MyReferralsPage() {
   const [user, setUser] = useState<User | null>(null);
   const [referralDetails, setReferralDetails] = useState<ReferralDetails>({
@@ -40,6 +47,10 @@ export default function MyReferralsPage() {
     referralsWithoutDeposits: 0
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [validReferrals, setValidReferrals] = useState(0);
+  const [milestones, setMilestones] = useState<MilestoneStatus[]>([]);
+  const [nextTarget, setNextTarget] = useState<number | null>(null);
+  const [isClaiming, setIsClaiming] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -49,6 +60,11 @@ export default function MyReferralsPage() {
         try {
           const details = await ReferralService.getReferralDetails(currentUser.uid);
           setReferralDetails(details);
+
+          const milestoneStatus = await ReferralService.getReferralMilestoneStatus(currentUser.uid);
+          setValidReferrals(milestoneStatus.validReferrals);
+          setMilestones(milestoneStatus.milestones);
+          setNextTarget(milestoneStatus.nextTarget);
         } catch (error) {
           console.error('Error loading referral details:', error);
           toast({ variant: 'destructive', title: 'Error', description: 'Failed to load referral details.' });
@@ -59,6 +75,28 @@ export default function MyReferralsPage() {
     });
     return () => unsubscribe();
   }, [toast]);
+
+  const handleClaimMilestone = async (milestone: MilestoneStatus) => {
+    if (!user) return;
+    setIsClaiming(milestone.id);
+    try {
+      const result = await ReferralService.claimReferralMilestone(user.uid, milestone.target);
+      if (result.success) {
+        toast({ title: 'Reward Claimed', description: result.message });
+        const milestoneStatus = await ReferralService.getReferralMilestoneStatus(user.uid);
+        setValidReferrals(milestoneStatus.validReferrals);
+        setMilestones(milestoneStatus.milestones);
+        setNextTarget(milestoneStatus.nextTarget);
+      } else {
+        toast({ variant: 'destructive', title: 'Cannot Claim', description: result.message });
+      }
+    } catch (error) {
+      console.error('Error claiming milestone:', error);
+      toast({ variant: 'destructive', title: 'Error', description: 'Failed to claim reward.' });
+    } finally {
+      setIsClaiming(null);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -118,6 +156,69 @@ export default function MyReferralsPage() {
                 <p className="text-2xl font-bold">{referralDetails.referralsWithoutDeposits}</p>
               </div>
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Gift className="h-5 w-5 text-primary" />
+            Referral Event Rewards
+          </CardTitle>
+          <CardDescription>
+            Extra rewards for valid Level 1 users who have deposited and invested at least once.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">
+              You have <span className="font-semibold text-primary">{validReferrals}</span> valid referrals.
+            </p>
+            {nextTarget && (
+              <p className="text-xs text-muted-foreground">
+                Next reward at <span className="font-semibold">{nextTarget}</span> valid referrals.
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-2 max-h-96 overflow-y-auto">
+            {milestones.map((m) => (
+              <div
+                key={m.id}
+                className="flex items-center justify-between p-3 rounded-lg border bg-card/40"
+              >
+                <div>
+                  <p className="font-semibold text-sm">
+                    {m.id} – {m.target} valid users
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Reward: ₦{m.reward.toLocaleString()}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  {m.status === 'claimed' && (
+                    <span className="flex items-center text-xs text-green-500">
+                      <CheckCircle className="h-4 w-4 mr-1" /> Claimed
+                    </span>
+                  )}
+                  {m.status === 'locked' && (
+                    <span className="flex items-center text-xs text-muted-foreground">
+                      <Lock className="h-4 w-4 mr-1" /> Locked
+                    </span>
+                  )}
+                  {m.status === 'claimable' && (
+                    <button
+                      onClick={() => handleClaimMilestone(m)}
+                      disabled={isClaiming === m.id}
+                      className="px-3 py-1 text-xs rounded-md bg-primary text-primary-foreground disabled:opacity-60"
+                    >
+                      {isClaiming === m.id ? 'Claiming...' : `Claim ₦${m.reward.toLocaleString()}`}
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>

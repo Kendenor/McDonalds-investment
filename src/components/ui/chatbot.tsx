@@ -32,18 +32,18 @@ const FAQ_DATA = [
   {
     keywords: ['product', 'cycle', 'days', 'investment'],
     response: `Product Investment Cycles:
-• Special Products: 50-day cycles with 19.5% daily ROI
-• Premium Products: 7-day cycles with 19.9% daily ROI
-• Basic Products: No cycles, immediate returns
+• Special Products: 365-day cycles with 3.9% daily ROI
+• Premium Products: 10-day cycles with 12.6% daily ROI
+• Basic Products have been discontinued for new purchases
 • Each product has limited availability (e.g., 0/300 slots)
 • When slots are full, products show "SOLD OUT"`
   },
   {
     keywords: ['roi', 'return', 'profit', 'income'],
     response: `Investment Returns:
-• Special Products: 19.5% daily ROI, 50-day cycles
-• Premium Products: 19.9% daily ROI, 7-day cycles
-• Basic Products: Varying returns based on plan
+• Special Products: 3.9% daily ROI, 365-day cycles
+• Premium Products: 12.6% daily ROI, 10-day cycles
+• Basic Products: Legacy plans only (no longer sold)
 • Total returns are calculated over the full cycle period
 • Daily income is automatically calculated`
   },

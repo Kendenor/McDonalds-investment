@@ -329,29 +329,6 @@ export default function DashboardPage() {
   const [showInvestmentSuccess, setShowInvestmentSuccess] = useState(false);
   const [lastInvestedProduct, setLastInvestedProduct] = useState('');
 
-  // Check if user has purchased any Basic products
-  const [hasBasicProducts, setHasBasicProducts] = useState(false);
-
-  // Check for basic products when user data changes
-  useEffect(() => {
-    const checkBasicProducts = async () => {
-      if (!user) return;
-      
-      try {
-        const userProducts = await ProductService.getUserProducts(user.uid);
-        const hasBasic = userProducts.some((product: any) => 
-          product.planType === 'Basic' && product.status === 'Active'
-        );
-        setHasBasicProducts(hasBasic);
-      } catch (error) {
-        console.error('Error checking basic products:', error);
-        setHasBasicProducts(false);
-      }
-    };
-
-    checkBasicProducts();
-  }, [user, userData]);
-
   const { toast } = useToast();
 
   useEffect(() => {
@@ -399,19 +376,9 @@ export default function DashboardPage() {
       return;
     }
 
-    // Determine plan type
+    // Determine plan type (Basic kept for legacy products, but no new Basic plans are shown)
     const planType: 'Basic' | 'Special' | 'Premium' = product.id.startsWith('basic') ? 'Basic' : 
                     product.id.startsWith('special') ? 'Special' : 'Premium';
-
-    // Check if user is trying to purchase Special or Premium without Basic products
-    if ((planType === 'Special' || planType === 'Premium') && !hasBasicProducts) {
-      toast({ 
-        variant: "destructive", 
-        title: "Purchase Restriction", 
-        description: "You must purchase at least one Basic Plan to unlock Special and Premium Plans." 
-      });
-      return;
-    }
 
     // Check if Firebase is initialized
     if (!db) {
@@ -751,16 +718,6 @@ export default function DashboardPage() {
             });
         }
 
-        // Update canAccessSpecialPlans if this is a basic plan
-        if (planType === 'Basic') {
-          // Refresh basic products check to unlock Special/Premium plans
-          const userProducts = await ProductService.getUserProducts(user.uid);
-          const hasBasic = userProducts.some((product: any) => 
-            product.planType === 'Basic' && product.status === 'Active'
-          );
-          setHasBasicProducts(hasBasic);
-        }
-      
       // Show success message with instructions
       const isSpecialPlan = planType === 'Special';
       toast({ 
@@ -850,11 +807,9 @@ export default function DashboardPage() {
   };
 
   const [products, setProducts] = useState<{
-    basic: Array<{ id: string; name: string; price: number; daily: number; total: number; days: number; imageUrl: string; dailyROI: number; cycleDays: number; }>;
     special: Array<{ id: string; name: string; price: number; daily: number; total: number; days: number; imageUrl: string; dailyROI: number; cycleDays: number; }>;
     premium: Array<{ id: string; name: string; price: number; daily: number; total: number; days: number; imageUrl: string; dailyROI: number; cycleDays: number; }>;
   }>({
-    basic: [],
     special: [],
     premium: []
   });
@@ -931,14 +886,7 @@ export default function DashboardPage() {
         const productTaskService = new ProductTaskService();
         await productTaskService.checkAndExpireTasks();
         
-        // Load investment plans from service
-        const basicPlans = InvestmentPlanService.getBasicPlans().map(plan => ({
-          ...plan,
-          daily: plan.dailyIncome,
-          total: plan.totalReturn,
-          days: plan.cycleDays,
-          imageUrl: `/images/basic_${plan.id.split('-')[1]}.png.jpg`
-        }));
+        // Load investment plans from service (Basic plans removed from dashboard)
         const specialPlans = InvestmentPlanService.getSpecialPlans().map(plan => ({
           ...plan,
           daily: plan.dailyIncome,
@@ -956,7 +904,6 @@ export default function DashboardPage() {
         }));
 
         setProducts({
-          basic: basicPlans,
           special: specialPlans,
           premium: premiumPlans
         });
@@ -1115,29 +1062,11 @@ export default function DashboardPage() {
         )}
 
         <div>
-            <Tabs defaultValue="basic" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 bg-card/50">
-                <TabsTrigger value="basic">Basic</TabsTrigger>
+            <Tabs defaultValue="special" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 bg-card/50">
                 <TabsTrigger value="special">Special</TabsTrigger>
                 <TabsTrigger value="premium">Premium</TabsTrigger>
             </TabsList>
-            <TabsContent value="basic">
-                <div className="grid grid-cols-2 gap-4 mt-6">
-                    {isLoadingProducts ? (
-                        <div className="col-span-full text-center py-8">
-                            <p>Loading products...</p>
-                        </div>
-                    ) : products.basic.length === 0 ? (
-                        <div className="col-span-full text-center py-8">
-                            <p>No Basic plans available at the moment.</p>
-                        </div>
-                    ) : (
-                        products.basic.map(product => (
-                        <ProductCard key={product.id} product={product} onInvest={handleInvest} refreshAvailability={refreshAvailability} refreshKey={refreshKey} />
-                        ))
-                    )}
-                </div>
-            </TabsContent>
             <TabsContent value="special">
                 <div className="grid grid-cols-2 gap-4 mt-6">
                     {isLoadingProducts ? (

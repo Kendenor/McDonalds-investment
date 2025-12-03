@@ -41,29 +41,31 @@ export class ProductInventoryService {
 
       // Special products inventory - Track purchased count (starts at 0)
       const specialInventory = {
-        'special-1': { purchased: 0, total: 300, name: 'Special 1' },
-        'special-2': { purchased: 0, total: 250, name: 'Special 2' },
-        'special-3': { purchased: 0, total: 150, name: 'Special 3' },
-        'special-4': { purchased: 0, total: 120, name: 'Special 4' },
-        'special-5': { purchased: 0, total: 100, name: 'Special 5' },
-        'special-6': { purchased: 0, total: 90, name: 'Special 6' },
-        'special-7': { purchased: 0, total: 70, name: 'Special 7' },
-        'special-8': { purchased: 0, total: 40, name: 'Special 8' },
-        'special-9': { purchased: 0, total: 15, name: 'Special 9' },
-        'special-10': { purchased: 0, total: 3, name: 'Special 10' }
+        'special-1': { purchased: 0, total: 50, name: 'Special 1' },
+        'special-2': { purchased: 0, total: 50, name: 'Special 2' },
+        'special-3': { purchased: 0, total: 50, name: 'Special 3' },
+        'special-4': { purchased: 0, total: 50, name: 'Special 4' },
+        'special-5': { purchased: 0, total: 50, name: 'Special 5' },
+        'special-6': { purchased: 0, total: 35, name: 'Special 6' },
+        'special-7': { purchased: 0, total: 25, name: 'Special 7' },
+        'special-8': { purchased: 0, total: 15, name: 'Special 8' },
+        'special-9': { purchased: 0, total: 5, name: 'Special 9' },
+        'special-10': { purchased: 0, total: 3, name: 'Special 10' },
+        'special-11': { purchased: 0, total: 1, name: 'Special 11' }
       };
 
       // Premium products inventory - Track purchased count (starts at 0)
       const premiumInventory = {
         'premium-1': { purchased: 0, total: 200, name: 'Premium 1' },
-        'premium-2': { purchased: 0, total: 170, name: 'Premium 2' },
-        'premium-3': { purchased: 0, total: 150, name: 'Premium 3' },
-        'premium-4': { purchased: 0, total: 120, name: 'Premium 4' },
-        'premium-5': { purchased: 0, total: 100, name: 'Premium 5' },
-        'premium-6': { purchased: 0, total: 80, name: 'Premium 6' },
-        'premium-7': { purchased: 0, total: 50, name: 'Premium 7' },
-        'premium-8': { purchased: 0, total: 30, name: 'Premium 8' },
-        'premium-9': { purchased: 0, total: 4, name: 'Premium 9' }
+        'premium-2': { purchased: 0, total: 55, name: 'Premium 2' },
+        'premium-3': { purchased: 0, total: 55, name: 'Premium 3' },
+        'premium-4': { purchased: 0, total: 55, name: 'Premium 4' },
+        'premium-5': { purchased: 0, total: 50, name: 'Premium 5' },
+        'premium-6': { purchased: 0, total: 45, name: 'Premium 6' },
+        'premium-7': { purchased: 0, total: 20, name: 'Premium 7' },
+        'premium-8': { purchased: 0, total: 10, name: 'Premium 8' },
+        'premium-9': { purchased: 0, total: 2, name: 'Premium 9' },
+        'premium-10': { purchased: 0, total: 1, name: 'Premium 10' }
       };
 
       // Save inventory to Firestore
